@@ -1,0 +1,735 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="1/3/2022 1:32:32 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BAMBIG03"
+  DTS:CreatorName="BAM\kennedyl"
+  DTS:DTSID="{E9798502-7C9C-43A8-8B89-966C3001D98E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.1601.5"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PowerReview"
+  DTS:PackageType="5"
+  DTS:VersionBuild="33"
+  DTS:VersionGUID="{B22F58ED-CCA0-473A-8C5B-E34EAD418A8B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[bambig03.Reference]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AECDEBED-CDA6-4611-87AA-77F9AC8A79C6}"
+      DTS:ObjectName="bambig03.Reference">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=bambig03;Initial Catalog=Reference;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Books.biguser]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{42CC321D-2A4B-4327-86EA-C6523EB3987D}"
+      DTS:ObjectName="Books.biguser">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=biguser;Dsn=Books;">
+          <DTS:Password
+            DTS:Name="pwd"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA84larbWS0UmezeR1d2P9qQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAB1Z2K1roq0ieWwzrY36MZCAAAAAASAAACgAAAAEAAAAKW5JYN6n2ybaZbIXJam78cYAAAAmuNg+eJ2DL2JeHHDguIWj3+TU8dXUfxrFAAAAJvidKno9zautkRiDAfBSIu5rFya</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[PowerReviewFlatFile]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{F4A53BA0-3C94-4ABE-A829-96BA79936E70}"
+      DTS:ObjectName="PowerReviewFlatFile">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\PowerReview\Upload\BAMPowerReviewsOrderFeed.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="page_id"
+              DTS:DTSID="{51A75225-3B7D-4DC1-9615-4009B7BFE701}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="order_id"
+              DTS:DTSID="{6E4EB170-3C3C-45A7-B2CB-D34634641D88}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="first_name"
+              DTS:DTSID="{3197FB69-4A51-45BC-B896-35372EEBA68A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="last_name"
+              DTS:DTSID="{4CA96C5F-4DE3-4889-A444-CFC389F3DC30}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="email"
+              DTS:DTSID="{444D2EB4-E5A6-4EC9-A6BB-5496B1F6E485}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="order_date"
+              DTS:DTSID="{5C8C2F7D-E0F3-4916-A437-946BDAB3DEBB}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute Stored Proc"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8070A21A-3755-4966-9FE4-6DF5974A5D72}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute Stored Proc"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AECDEBED-CDA6-4611-87AA-77F9AC8A79C6}"
+          SQLTask:SqlStatementSource="exec dbo.usp_PowerReviewDataExtract" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Import data into tblPowerReview"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{ECAADE46-5203-4259-9634-B9936C66FE8C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Import data into tblPowerReview"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Import data into tblPowerReview\Flat File Destination"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="Flat File Destination">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Import data into tblPowerReview\Flat File Destination.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[PowerReviewFlatFile]"
+                  connectionManagerRefId="Package.ConnectionManagers[PowerReviewFlatFile]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].Columns[page_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="page_id"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[page_id]"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[page_id]" />
+                    <inputColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].Columns[order_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[order_id]"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].Columns[First_Name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="254"
+                      cachedName="First_Name"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[first_name]"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[First_Name]" />
+                    <inputColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].Columns[Last_Name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="254"
+                      cachedName="Last_Name"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[last_name]"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[Last_Name]" />
+                    <inputColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].Columns[email]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="254"
+                      cachedName="email"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[email]"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[email]" />
+                    <inputColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].Columns[order_date]"
+                      cachedDataType="dbDate"
+                      cachedName="order_date"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[order_date]"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[order_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[page_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="page_id" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[order_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[first_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="first_name" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[last_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="last_name" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="email" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[order_date]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="order_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\Import data into tblPowerReview\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[tblPowerReview]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Import data into tblPowerReview\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[bambig03.Reference]"
+                  connectionManagerRefId="Package.ConnectionManagers[bambig03.Reference]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[page_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[page_id]"
+                      length="50"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[page_id]"
+                      name="page_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[order_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      length="50"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[order_id]"
+                      name="order_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[First_Name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[First_Name]"
+                      length="254"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[First_Name]"
+                      name="First_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[Last_Name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Last_Name]"
+                      length="254"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[Last_Name]"
+                      name="Last_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[email]"
+                      length="254"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[email]"
+                      name="email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[order_date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[order_date]"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].Columns[order_date]"
+                      name="order_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[page_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="page_id" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[First_Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="254"
+                      name="First_Name" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Last_Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="254"
+                      name="Last_Name" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="254"
+                      name="email" />
+                    <externalMetadataColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[order_date]"
+                      dataType="dbDate"
+                      name="order_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[page_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[page_id]"
+                      name="page_id" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      name="order_id" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[First_Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="254"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[First_Name]"
+                      name="First_Name" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Last_Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="254"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Last_Name]"
+                      name="Last_Name" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[email]"
+                      codePage="1252"
+                      dataType="str"
+                      length="254"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[email]"
+                      name="email" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[order_date]"
+                      dataType="dbDate"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[order_date]"
+                      name="order_date" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Import data into tblPowerReview.Paths[OLE DB Source Output]"
+              endId="Package\Import data into tblPowerReview\Flat File Destination.Inputs[Flat File Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Import data into tblPowerReview\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Send to sftp Power Review"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{83BDCD7C-FA24-4BBD-98BB-E2A78E17E550}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Send to sftp Power Review"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\Program Files (x86)\WinSCP\WinSCP.exe"
+          RequireFullFileName="False"
+          Arguments="/script=E:\PowerReview\pv.txt"
+          WorkingDirectory="E:\PowerReview\"
+          WindowStyle="Hidden" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Table tblPowerReview"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F10DF89B-DA68-4E3F-995F-C2778E9308C2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Table tblPowerReview"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AECDEBED-CDA6-4611-87AA-77F9AC8A79C6}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.tblPowerReview" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{B36DD2D8-6373-4A26-85CD-5AD26087998D}"
+      DTS:From="Package\Truncate Table tblPowerReview"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Execute Stored Proc" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{5E045E56-CF76-468D-B371-2BC72271EB32}"
+      DTS:From="Package\Import data into tblPowerReview"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Send to sftp Power Review" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{60F37711-0A38-464E-A2B5-2BD9BDFDB745}"
+      DTS:From="Package\Execute Stored Proc"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Import data into tblPowerReview" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Execute Stored Proc"
+          TopLeft="211,122" />
+        <NodeLayout
+          Size="237,42"
+          Id="Package\Import data into tblPowerReview"
+          TopLeft="183,215" />
+        <NodeLayout
+          Size="211,42"
+          Id="Package\Send to sftp Power Review"
+          TopLeft="199,325" />
+        <NodeLayout
+          Size="235,42"
+          Id="Package\Truncate Table tblPowerReview"
+          TopLeft="185,48" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="301.75,90">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="303,257">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="301.25,164">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Import data into tblPowerReview">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Import data into tblPowerReview\OLE DB Source"
+          TopLeft="507,105" />
+        <NodeLayout
+          Size="176,42"
+          Id="Package\Import data into tblPowerReview\Flat File Destination"
+          TopLeft="551,236" />
+        <EdgeLayout
+          Id="Package\Import data into tblPowerReview.Paths[OLE DB Source Output]"
+          TopLeft="585.5,147">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="53.5,89"
+              Start="0,0"
+              End="53.5,81.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,40.5"
+                    Point2="0,44.5"
+                    Point3="4,44.5" />
+                  <mssgle:LineSegment
+                    End="49.5,44.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="49.5,44.5"
+                    Point2="53.5,44.5"
+                    Point3="53.5,48.5" />
+                  <mssgle:LineSegment
+                    End="53.5,81.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Import data into tblPowerReview\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

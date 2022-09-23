@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="BKL400.BKL400QSYS2.infausr"
+  DTS:DTSID="{E0142F4F-0FE4-4FCC-ACF2-197E06D14784}"
+  DTS:CreationName="OLEDB">
+  <DTS:PropertyExpression
+    DTS:Name="ConnectionString">@[$Project::BKL400QSYS2_DB2AS400_Infausr_ConnectionString]</DTS:PropertyExpression>
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=BKL400;User ID=infausr;Initial Catalog=BKL400;Provider=DB2OLEDB.1;Persist Security Info=True;Package Collection=QSYS2;Default Schema=QSYS2;DBMS Platform=DB2/AS400;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

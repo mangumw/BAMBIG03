@@ -1,0 +1,3768 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/21/2009 10:35:10 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BAMBIG01"
+  DTS:CreatorName="BAM\infausr"
+  DTS:DTSID="{4AD0CF21-02A8-4F9C-9C4E-7C2641C2D396}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.1601.5"
+  DTS:LocaleID="1033"
+  DTS:MaxErrorCount="12"
+  DTS:ObjectName="LIFT361_DAILY_EXPORT"
+  DTS:PackageType="5"
+  DTS:VersionBuild="282"
+  DTS:VersionGUID="{BC9C4052-2758-4EB9-AA99-F395BC7D2EBD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BAMBIG03.BasilData]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4D3D149F-1368-48FA-80A2-7DD269C4B1BA}"
+      DTS:ObjectName="BAMBIG03.BasilData">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::BAMBIG03BasilData_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BAMBIG03;Initial Catalog=BasilData;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=false;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[bambig03.DssData]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4EF627D1-373A-462D-B6ED-AA0908CB9D93}"
+      DTS:ObjectName="bambig03.DssData">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::Bambig03DSSDataInfausr_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BAMBIG03;Initial Catalog=DSSData;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[bambig03.Reference.infausr]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{47746E89-51AB-42F3-8A15-726F7D2678DC}"
+      DTS:ObjectName="bambig03.Reference.infausr">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::BAMBIG03ReferenceInfausr_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BAMBIG03;Initial Catalog=Reference;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[bambig03.Tmp_Load]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C1DBDF20-3120-4A01-829C-ACE9D67E1E4A}"
+      DTS:ObjectName="bambig03.Tmp_Load">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::BAMBIG03Tmp_Load_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BAMBIG03;Initial Catalog=Tmp_Load;Provider=SQLNCLI11;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Basil Flat File Connection]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{1CDC5500-1927-4717-B0C6-A17AB9F223C4}"
+      DTS:ObjectName="Basil Flat File Connection">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\2NC">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="store_id"
+              DTS:DTSID="{BE77C798-3F54-4C6B-9FA7-1B9EA5268AAE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="201"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="email"
+              DTS:DTSID="{237847C5-AA26-4C95-9A04-422E0764976F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="city"
+              DTS:DTSID="{2D6FB8AE-265C-41BC-BF81-4F060822655D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="303"
+              DTS:TextQualified="True"
+              DTS:ObjectName="state"
+              DTS:DTSID="{A9E0BA1D-0CBA-4AA6-A5B2-CA83DFCF9E96}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="303"
+              DTS:TextQualified="True"
+              DTS:ObjectName="postal_code"
+              DTS:DTSID="{BFF45650-3DFB-412C-AC92-C68F46091F3D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="id"
+              DTS:DTSID="{457F61EF-C1E6-4BDA-B383-1BC1E1293178}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FTP Connection Manager]"
+      DTS:CreationName="FTP"
+      DTS:DTSID="{B87F0D93-1701-4759-98AF-E6A24024C171}"
+      DTS:ObjectName="FTP Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="ftp.lift361.com:21">
+          <DTS:FtpConnection
+            DTS:ServerName="ftp.lift361.com"
+            DTS:ServerUserName="ftp_books">
+            <DTS:Property
+              DTS:Name="ServerPassword"
+              Sensitive="1"
+              Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUexXNfSGLkWvYbgzY+ntvwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACc3nGUN9VqUYM83hjiN7eVAAAAAASAAACgAAAAEAAAAKtGF6p6i7ogU/6wnzVHPrYIAAAAuufPA4FpKQcUAAAAM10mFUlinO6xcXLiVv2GwgVF5Hg</DTS:Property>
+          </DTS:FtpConnection>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GCLU.gpg]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{9387BC91-4ED0-4528-8AA0-922D7612464C}"
+      DTS:ObjectName="GCLU.gpg">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="E:\ILOUT\ILOut\GCLU" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ILOut_GCLU]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{7A6C28A5-AC80-4E3D-98EF-B949642DDF77}"
+      DTS:ObjectName="ILOut_GCLU">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\GCLU">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="passignstore"
+              DTS:DTSID="{01330993-4C34-4C8C-8568-84F8F5CB9BB2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="10"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="mcustnum"
+              DTS:DTSID="{C3EA71FC-C760-4D00-9785-F70A0B747D22}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="mfname"
+              DTS:DTSID="{C64F939A-52C3-4BC1-9DE9-3512301391C4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="mlname"
+              DTS:DTSID="{D20B48E4-4E69-4469-B17D-4F29E1861E2A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="40"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="mcompany"
+              DTS:DTSID="{451A2EE6-ECBC-47DD-A891-C67CE2261AF0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="35"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="aaddress1"
+              DTS:DTSID="{D1227448-2299-43F7-B714-002F47AFBDBE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="30"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="acity"
+              DTS:DTSID="{62697F6E-7CB6-45C9-BCD8-DB57FECE5CB4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="astate"
+              DTS:DTSID="{06A80F4A-A856-4DAA-AB3E-EA180EBDD3F2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="15"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="azip"
+              DTS:DTSID="{36236283-F827-4012-B663-DFFBE6C4C4E7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="128"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="email"
+              DTS:DTSID="{D71CC067-7810-45B3-8BA2-4984707BD628}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="135"
+              DTS:TextQualified="True"
+              DTS:ObjectName="expdate1"
+              DTS:DTSID="{B4E61602-9CF4-4DBB-81F5-C0E65DD6720A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="mspecial"
+              DTS:DTSID="{4DC082ED-0507-4DBD-AEDB-BB090B1048AF}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ILOut_Item_Master]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{6DB104AB-B1C5-461F-8535-72DAD2EB33C7}"
+      DTS:ObjectName="ILOut_Item_Master">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\Item_Master">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="30"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ISBN"
+              DTS:DTSID="{5A8F6DB2-34A2-4A42-AD2E-78C449567F7F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="9"
+              DTS:TextQualified="True"
+              DTS:ObjectName="SKU_Number"
+              DTS:DTSID="{80514A5A-FF61-4C00-9F70-C0A162C30C16}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Sku_Text"
+              DTS:DTSID="{668DEAA2-5889-4DD0-B175-B8ECC267B8F2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="EAN"
+              DTS:DTSID="{DC94C9F7-4E80-4A27-B5A6-8DF133DEDB1F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="3"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="SKU_Type"
+              DTS:DTSID="{5CCAF1C1-3C6A-4DAC-89EC-32B4ED0DDF59}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="31"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Title"
+              DTS:DTSID="{C3FDA9E8-9C82-4143-9E27-1CD7E77CCC89}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="30"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Description"
+              DTS:DTSID="{F48EF754-1AD3-4056-9ADF-D091A03FE148}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="31"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Author"
+              DTS:DTSID="{6999E49A-CC53-497B-9B1F-A9E363EEE8AA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="1"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Returnable"
+              DTS:DTSID="{9EA35DE6-96A5-4533-94BE-CF9622EAD65B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="1"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Status"
+              DTS:DTSID="{1F8D2179-1778-4C8F-B924-77C9235E006C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="6"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="PubCode"
+              DTS:DTSID="{0A195626-1E40-4477-B2A2-EF7B03E9341E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Publisher"
+              DTS:DTSID="{F1A766E4-B3A1-4CE1-ACE5-2EFC3E85B882}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Vendor_Number"
+              DTS:DTSID="{9855149C-CF59-4FEA-817E-21D766F4392A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="15"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Vendors_Number"
+              DTS:DTSID="{1A1F04E9-225A-41D3-9E6C-C16A0740DF94}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Manuf_Number"
+              DTS:DTSID="{D4A2BB9B-D571-42D8-9EBD-E47BAE450249}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="15"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Manufs_Number"
+              DTS:DTSID="{4761162B-5E68-422A-8781-2AC534CC3195}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="27"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="MfgItemNo"
+              DTS:DTSID="{FF7F0D5F-3B33-4E2B-874E-D0E8438B8666}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="2"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Repl_Code"
+              DTS:DTSID="{912BFE7E-6003-4C93-8102-78A2AF018E3C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Module"
+              DTS:DTSID="{1CD7DD4A-654E-4038-8A3D-50EF22636930}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Dept"
+              DTS:DTSID="{E120E6FD-9E80-4B0E-9825-E53489C7350D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="SDept"
+              DTS:DTSID="{0E330C3C-B156-4AB4-8D65-60F5FC6B53AB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Class"
+              DTS:DTSID="{0A94E219-2E36-4C5D-8EFF-C111639A5881}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="SClass"
+              DTS:DTSID="{FE1037B7-822B-4A7D-B14E-19EB144050FC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="2"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Category"
+              DTS:DTSID="{EDEEF10A-81EC-4AD8-B390-E42F6FC2328B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Dept_Name"
+              DTS:DTSID="{1088E830-51E0-4F25-8926-93B1619B694D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="SDept_Name"
+              DTS:DTSID="{B55C856E-39EF-4109-BC92-122AEB06D907}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Class_Name"
+              DTS:DTSID="{77766A6F-C6F3-4096-8BF6-20C5FCE666E0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="SClass_Name"
+              DTS:DTSID="{3CD8225B-C871-457A-9E8F-A8CD2A6C25E5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="3"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Buyer_Number"
+              DTS:DTSID="{976250A2-7762-40F8-8DE2-13158ADA5625}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BuyerName"
+              DTS:DTSID="{13BE362C-C1EC-4359-BB14-5B9FCC0E3F01}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Merch_Group_Number"
+              DTS:DTSID="{B616083F-30A6-432F-86D5-AA4ADEAE4DE4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Coordinate_Group"
+              DTS:DTSID="{EE2DDE8C-3DB1-49D0-B997-A2913C8B1CEE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="9"
+              DTS:DataScale="2"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Manuf_List_Price"
+              DTS:DTSID="{42C6F536-5265-4396-A5E4-58E19EA172EF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="9"
+              DTS:DataScale="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Home_Cost"
+              DTS:DTSID="{4C8AA94C-B23F-466A-8146-DF3B05447C0E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="9"
+              DTS:DataScale="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Vendor_Cost"
+              DTS:DTSID="{D69C9895-BBA0-4B8B-9939-15C4FA0ACB51}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="9"
+              DTS:DataScale="2"
+              DTS:TextQualified="True"
+              DTS:ObjectName="POS_Price"
+              DTS:DTSID="{7D560500-F76B-4A8C-B58A-C748095614CC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="9"
+              DTS:DataScale="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Initial_Home_Cost"
+              DTS:DTSID="{A8E56AD5-0534-455A-A0BA-710BDB20F0EF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="3"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="SuspendCode"
+              DTS:DTSID="{2D212663-0B2E-4751-AA51-169DB99CF1E1}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="VoidFlag"
+              DTS:DTSID="{2E6B349D-81E7-4375-AF63-48136D946F14}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Disposition"
+              DTS:DTSID="{C86C842F-C453-4303-90CC-970723F79504}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ILevel"
+              DTS:DTSID="{B3FED285-B6DE-4860-8EE5-D715682ED68C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="1"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Level_Ind"
+              DTS:DTSID="{6A04B219-705A-4167-97E3-A83E404874FF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Min_Qty"
+              DTS:DTSID="{14B3EF4F-C655-48A2-A18E-A73004288749}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Max_Qty"
+              DTS:DTSID="{C543B871-BF33-4A00-8012-AA448BA662AA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="135"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Load_Date"
+              DTS:DTSID="{7061E057-FC0E-47CB-863B-73E5AAA5FC1E}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ILOut_pubcat]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{F099072E-2D14-447E-8822-338AEBDABC6A}"
+      DTS:ObjectName="ILOut_pubcat">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\pubcat">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="9"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BISAC"
+              DTS:DTSID="{386B06AF-B2D4-480D-874E-FC9FF737B720}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="55"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BISDES"
+              DTS:DTSID="{7E3195B4-C700-46AA-B038-169AF0A4A996}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="1"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BMDTYP"
+              DTS:DTSID="{9103F72F-9B68-4E37-A310-C03BA16F7E2A}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="2"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BBDTYP"
+              DTS:DTSID="{10329A9D-4398-41A8-9CC1-EB52EF1DD4AC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BDEPT"
+              DTS:DTSID="{58E952F1-A1B3-443C-AD25-82778DF43A49}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BSDEPT"
+              DTS:DTSID="{7356B950-ADAB-44C8-9877-CD1C6E35FAD9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BCLAS"
+              DTS:DTSID="{735D30C4-6C78-4F67-AF23-7C31BB4298ED}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BSCLAS"
+              DTS:DTSID="{52B33E03-7957-4045-BD25-EA5877C4B248}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ILOut_store_dim]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{6401749B-6F00-4EB2-BA0E-40A0296BA177}"
+      DTS:ObjectName="ILOut_store_dim">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\store_dim">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="store_group_number"
+              DTS:DTSID="{ABD071E6-A37D-42EB-9AC4-DC8E565387C0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="store_number"
+              DTS:DTSID="{FB9AE537-11FF-4AF9-B98A-6C744A38C116}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="75"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="store_name"
+              DTS:DTSID="{EDD4AF99-6406-41DD-B5A3-B548456F21F5}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="model_store_code"
+              DTS:DTSID="{A2D503B5-4A46-4418-ADBC-DC4C4C155C16}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="district_number"
+              DTS:DTSID="{583F94CD-844F-4B0A-9E73-41C4484D0350}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="75"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="street_address1"
+              DTS:DTSID="{D4DD002C-8238-4E60-BAB4-79AF57616956}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="75"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="street_address2"
+              DTS:DTSID="{BAEF87F7-4CB4-4331-8301-706013872DF2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="city"
+              DTS:DTSID="{55099CFE-67A7-44E6-A88E-4B02897769B6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="2"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="state"
+              DTS:DTSID="{52238B55-D42F-4A0B-9102-47D794FF0000}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="20"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="county"
+              DTS:DTSID="{30528B54-94B3-4D09-9C72-3E7D07F7FEDE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="3"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="country"
+              DTS:DTSID="{3B22E737-376A-4C91-8B90-ECF8AFC4496F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="16"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="zip_code"
+              DTS:DTSID="{52BE5325-C8FF-47E1-B0E2-63A7C84DF682}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="25"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="phone_number"
+              DTS:DTSID="{1D572E47-3660-4A58-9BB9-495FCFD997D3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="135"
+              DTS:TextQualified="True"
+              DTS:ObjectName="date_opened"
+              DTS:DTSID="{B5002B40-31BC-4087-8EFD-901E1114003F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="135"
+              DTS:TextQualified="True"
+              DTS:ObjectName="date_closed"
+              DTS:DTSID="{C9E4993A-CFAB-4EC1-A6C6-06BEF31D8B42}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="135"
+              DTS:TextQualified="True"
+              DTS:ObjectName="record_date"
+              DTS:DTSID="{E47A0902-F855-4A65-BBB1-3F254511CD03}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ILOut_Weekly_Trans]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{12B57002-4544-477D-876E-C6418B75BF0E}"
+      DTS:ObjectName="ILOut_Weekly_Trans">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\Weekly_Trans">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="135"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Day_Date"
+              DTS:DTSID="{E8386816-6733-421A-ADBF-032E21664C67}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Store_Number"
+              DTS:DTSID="{6696C67A-9BE5-4C92-841D-550D34AA91BB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Register_Nbr"
+              DTS:DTSID="{A5AD5762-7199-4AE9-944C-FE62C605321E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Transaction_Nbr"
+              DTS:DTSID="{8744E312-CA39-4C39-ADB2-130421A4A004}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Sequence_Nbr"
+              DTS:DTSID="{3492B9CF-B2C3-47E5-95F2-0582F212EDFD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="3"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Transaction_Code"
+              DTS:DTSID="{9FF9421D-789D-48B4-9260-190B5F02D6AE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Transaction_Time"
+              DTS:DTSID="{ACF18E56-75BA-4203-9370-2E8706738CF0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Cashier_Nbr"
+              DTS:DTSID="{1DE2A6D3-E147-4C1C-A67E-A449D50CB44E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="20"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Sku_Number"
+              DTS:DTSID="{5081C1A4-6E8B-4EA3-AE32-2FA2AA9DF3F3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="30"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="ISBN"
+              DTS:DTSID="{EF39BEFF-6D55-40C8-86BB-DC2DEBA89AA7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Item_Quantity"
+              DTS:DTSID="{0CBC8477-F279-40DD-AB11-4950ABE64093}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Unit_Retail"
+              DTS:DTSID="{6B5A9009-52B1-4408-B128-A19CDF23DD45}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Unit_Cost"
+              DTS:DTSID="{B4EC6579-EF54-45DA-8665-F6DC5B9B27CC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Extended_Price"
+              DTS:DTSID="{7D74387C-66C7-4031-8ADC-5770DACD746D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Extended_Discount"
+              DTS:DTSID="{A9C81DA0-F71D-4CF7-B889-0BDBBB6AFBD0}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="1"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Price_Override"
+              DTS:DTSID="{8FDC4875-AA87-4D5A-90FE-B47444A28196}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="27"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="UPC_Number"
+              DTS:DTSID="{59AC3C4E-8E07-44F6-877E-079565F8F4B7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="6"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Unit_Regular_Price"
+              DTS:DTSID="{104C36E6-A1BC-4138-AB56-3574B3E6AE0D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:MaximumWidth="10"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Reason_Code"
+              DTS:DTSID="{AB6E7716-7CD3-4A94-BD48-FEB0AEA5A505}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Customer_Number"
+              DTS:DTSID="{7EFEF446-4D45-4CE8-8DB5-80548D9E986B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x007C_"
+              DTS:DataType="135"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Load_Date"
+              DTS:DTSID="{751296E2-911B-41A0-A858-E7432F9BC47F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Dept"
+              DTS:DTSID="{1D8A4709-910A-468E-A36F-27022241214E}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Item_Master.gpg]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{2A011F65-1952-4EC0-95E3-A418B354D96C}"
+      DTS:ObjectName="Item_Master.gpg">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="E:\ILOUT\ILOut\Item_Master" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Optin.xls]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{E1B40434-F005-4B46-8E32-23CBAB51D3DD}"
+      DTS:ObjectName="Optin.xls">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=X:\LIFT\OPTIN.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OPTIN_csv]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{21482808-5E66-41FA-A98E-73D343BEE593}"
+      DTS:ObjectName="OPTIN_csv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOut\OPTIN.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="EMAIL"
+              DTS:DTSID="{93DFFB77-39B2-45AA-ABBA-5F558ABBDDD7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="STORE"
+              DTS:DTSID="{D34D6580-50FF-4722-9084-B5619F4AA395}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BRAND"
+              DTS:DTSID="{704D462F-7A82-4006-BC2B-B572A86F743C}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OPTIN_OPTOUT_SOURCE_OPTIN.csv]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{3E43B50D-1994-40F9-AB04-B44E78A8FAB7}"
+      DTS:ObjectName="OPTIN_OPTOUT_SOURCE_OPTIN.csv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\OPTIN_OPTOUT_SOURCE\OPTIN.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="EMAILADDRESS"
+              DTS:DTSID="{B42F8926-6AE6-4D86-AE9C-2211B748A494}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="STOREID"
+              DTS:DTSID="{260A2E46-EECC-46CB-940E-78E4E9FF468D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BRAND"
+              DTS:DTSID="{C52F3037-9BF4-4B04-8553-B6D73CB9EC73}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OPTIN_OPTOUT_SOURCE_OPTOUT.csv]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{0A9A55E5-78B3-40D7-B478-179C2F8AAE2F}"
+      DTS:ObjectName="OPTIN_OPTOUT_SOURCE_OPTOUT.csv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOUT\ILOut\OPTIN_OPTOUT_SOURCE\OPTOUT.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="EMAIL"
+              DTS:DTSID="{D89B77C1-F54E-4183-8AF8-91BAFC7A9355}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="STORE"
+              DTS:DTSID="{FAB54371-E934-4CA7-8F11-30DB11701D0E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BRAND"
+              DTS:DTSID="{2348191A-4206-44E5-BF6D-8599D5D6D855}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OPTOUT_csv]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{44A0118D-F7D5-4764-8258-6E4259F0ACF3}"
+      DTS:ObjectName="OPTOUT_csv">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\ILOut\OPTOUT.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="EMAIL"
+              DTS:DTSID="{D745BA6C-0CDA-49D1-B66D-03600FCCB1CF}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="STORE"
+              DTS:DTSID="{1A698651-42B8-423F-B544-C0380C88EB5B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="BRAND"
+              DTS:DTSID="{D068C81A-B296-4349-9035-A888F222D8FF}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[weekly_trans.gpg]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{1C8ACFE7-BE12-47EB-8A8B-5E8AC7508B47}"
+      DTS:ObjectName="weekly_trans.gpg">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="E:\ILOUT\ILOut\Weekly_Trans" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F8822E08-0A11-469F-846F-7289E1A3796B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Copy_OPTIN_FROM">
+      <DTS:VariableValue
+        DTS:DataType="8">\\irondale2k\awbcshare\Marketing_Ashley\OPTIN.csv</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B505BD3B-4EF9-4039-B95E-C7A76CBB6A2A}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Copy_OPTIN_TO">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOUT\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AED6DF42-028D-4455-9ACD-CC3C9BCEBC8D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Copy_OPTOUT_FROM">
+      <DTS:VariableValue
+        DTS:DataType="8">\\irondale2k\awbcshare\Marketing_Ashley\OPTOUT.csv</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{88C53F12-F2B3-44C2-A8BA-B6603E8EBE29}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Copy_OPTOUT_TO">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOUT\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{03DC4E36-7015-498C-B6D8-50BF3D0B0BA4}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Curdate">
+      <DTS:VariableValue
+        DTS:DataType="8">20090901</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{12214310-593B-4C08-9D78-613D5391F8A0}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Delete_optin">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\OPTIN</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BC1E310F-A79E-4EED-8586-38556A82DFD7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Delete_OPTOUT">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\OPTOUT</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6A80471E-BBFA-4086-87B5-143DBD5CAE53}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="GCLU">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\GCLU.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DAC51A6D-53C1-4EC3-A097-4976489F14D5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Item_Master">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\Item_Master.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{18A7C940-7AED-4415-91F7-55EA06062358}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Move_OPT_Files">
+      <DTS:VariableValue
+        DTS:DataType="8">\\irondale2k\awbcshare\Marketing_Ashley\O*.*</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D2060CCA-678B-4958-B747-6D207232070B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="OPTIN">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\OPTIN.CSV.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{443EB99B-AFBF-4763-959B-0C8368FA6852}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="OPTOUT">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\OPTOUT.CSV.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8291ED05-D1FC-40E5-BB4F-553A63034458}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="OPTOUT2">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOUT\OPTOUT.CSV.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5E1DD38E-584C-4083-9185-86B92B78EFF1}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Pubcat">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\pubcat.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{188D39FE-48E0-4F9C-8634-B61A252B3DE7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Rename_OPTIN">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOUT\OPTIN.CSV</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{ACC65269-ECF7-45E4-8EDB-79714FCCD31A}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Rename_OPTIN_dest">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOUT\OPTIN</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{786740FA-D772-4C86-B987-5FE9E62D87C5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RENAME_OPTOUT">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOUT\OPTOUTA.csv</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{300A8902-5461-47D9-90BB-F643936D3A5E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RENAME_OPTOUT_DEST">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOUT\OPTOUT</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9B1CE396-F1EE-493B-85FB-92736F7646AF}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Store_Dim">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\store_dim.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{74747652-6990-4DB1-96ED-F67D672F2592}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Trans">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\Weekly_Trans.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5D6258B0-5BA4-4A23-95A1-88F73F606922}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_2NC">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ILOut\2NC_20091001.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D1F9CDE3-76AE-484D-A2A8-A65F1397345F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_GCLU">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ILOut\GCLU_20091001.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{63AE3CD5-E7F8-49E1-8217-D14B1EABD2A2}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_Item_Master">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\item_master_20090101.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AFE45018-1318-4649-9A4A-8B4EE20D0792}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_OPTIN">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ILOut\OPTIN_20091001.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BB24CF4B-8A48-4F39-AF6D-D86AF8F008A2}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_OPTOUT">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ILOut\OPTOUT_20091001.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1CD4E381-62C5-4B80-BC7E-5488B32142A5}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_Pubcat">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\Weekly_Pubcat_20090901.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FB81D16D-11B3-4375-A54E-B6A0FA430B1D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_Store_Dim">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\store_dim_20090901.gpg</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{745AE230-9B52-4EE0-9FC0-8B6A78DCCEC7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_Trans">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\ILOut\Weekly_Trans_20090901</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E36A322F-6530-4706-8DE6-818DF0BD953D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Weekly_Trans_Arg">
+      <DTS:VariableValue
+        DTS:DataType="8">--batch --yes --trust-model always -r D18F60F3 --encrypt-files e:\ILOut\Weekly_Trans_</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DB4790BE-6BB0-4169-A04A-7921F01D4208}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="_2NC">
+      <DTS:VariableValue
+        DTS:DataType="8">e:\ilout\2NC.gpg</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Encrypt OPTIN"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{88F92804-0034-46BA-9D38-821C81B6741A}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Encrypt OPTIN"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\ILOUT\gpg.exe"
+          RequireFullFileName="False"
+          Arguments="--batch --yes --trust-model always -r &quot;Integrative Logic&quot; --encrypt-files e:\ILOut\OPTIN.csv"
+          WorkingDirectory="E:\ILOUT"
+          FailTaskIfReturnCodeIsNotSuccessValue="False" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Encrypt OPTOUT"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{FFFA651E-72A5-4590-827B-B7499C17CF29}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Encrypt OPTOUT"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="E:\ILOUT\gpg.exe"
+          RequireFullFileName="False"
+          Arguments="--batch --yes --trust-model always -r &quot;Integrative Logic&quot; --encrypt-files e:\ILOut\OPTOUT.csv"
+          WorkingDirectory="E:\ILOUT"
+          FailTaskIfReturnCodeIsNotSuccessValue="False" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B0EE45FA-5472-4875-8685-52F348192DA2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{C1DBDF20-3120-4A01-829C-ACE9D67E1E4A}"
+          SQLTask:BypassPrepare="False"
+          SQLTask:SqlStatementSource="DELETE  FROM OPT_IN;&#xA;DELETE  FROM OPT_OUT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\FTP OPTIN"
+      DTS:CreationName="Microsoft.FtpTask"
+      DTS:Description="FTP Task"
+      DTS:DTSID="{4B36C6FD-8226-4EEF-9F15-B23A5899183D}"
+      DTS:ExecutableType="Microsoft.FtpTask"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="2"
+      DTS:ObjectName="FTP OPTIN"
+      DTS:TaskContact="FTP Task; Microsoft Corporation; Microsoft SQL Server v9; (c) 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FtpData
+          ConnectionName="{B87F0D93-1701-4759-98AF-E6A24024C171}"
+          StopOnFailure="False"
+          TaskIsLocalPathVar="True"
+          TaskLocalPath="User::Weekly_OPTIN"
+          TaskRemotePath="/"
+          TaskOverwriteDest="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\FTP OPTOUT"
+      DTS:CreationName="Microsoft.FtpTask"
+      DTS:Description="FTP Task"
+      DTS:DTSID="{076E0E18-285B-425F-9BD2-313F1E625728}"
+      DTS:ExecutableType="Microsoft.FtpTask"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="2"
+      DTS:ObjectName="FTP OPTOUT"
+      DTS:TaskContact="FTP Task; Microsoft Corporation; Microsoft SQL Server v9; (c) 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FtpData
+          ConnectionName="{B87F0D93-1701-4759-98AF-E6A24024C171}"
+          StopOnFailure="False"
+          TaskIsLocalPathVar="True"
+          TaskLocalPath="User::Weekly_OPTOUT"
+          TaskRemotePath="/"
+          TaskOverwriteDest="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get Date"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B3991B66-0B00-4B2D-859E-87FF9D96A0F5}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get Date"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{1BA35C6E-A3EB-4F6D-B96E-FEAE65671209}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="_2NC">
+          <DTS:VariableValue
+            DTS:DataType="3">0</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{47746E89-51AB-42F3-8A15-726F7D2678DC}"
+          SQLTask:SqlStatementSource="select cast(staging.dbo.fn_DateToLongDate(dateadd(dd,-1,getdate())) as varchar(10)) as Curdate"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="Curdate"
+            SQLTask:DtsVariableName="User::Curdate" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\MOVE FILES TO TABLES"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{093F935D-42B9-4514-BF6F-217AF893830F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="MOVE FILES TO TABLES"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v9; (C) 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          engineThreads="5"
+          version="1">
+          <components>
+            <component
+              refId="Package\MOVE FILES TO TABLES\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[OPT_OUT]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destinaton. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  connectionManagerRefId="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EMAIL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="EMAIL"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL]"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[EMAIL]" />
+                    <inputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[STORE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="STORE"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[STORE]"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[STORE]" />
+                    <inputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[BRAND]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BRAND"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[BRAND]"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[BRAND]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination 1"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[OPT_IN]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destinaton. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  connectionManagerRefId="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[BRAND]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BRAND"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[BRAND]"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[BRAND]" />
+                    <inputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[EMAIL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="EMAIL"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL]"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[EMAIL]" />
+                    <inputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].Columns[STORE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="STORE"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[STORE]"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[STORE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1033"
+              name="OPTIN FLAT FILE"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OPTIN_csv]"
+                  connectionManagerRefId="Package.ConnectionManagers[OPTIN_csv]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[BRAND]"
+                      length="50"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[BRAND]"
+                      name="BRAND"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[EMAIL]"
+                      length="50"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[EMAIL]"
+                      name="EMAIL"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[STORE]"
+                      length="50"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].Columns[STORE]"
+                      name="STORE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="1033"
+              name="OPTOUT FLAT FILE"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OPTIN_OPTOUT_SOURCE_OPTOUT.csv]"
+                  connectionManagerRefId="Package.ConnectionManagers[OPTIN_OPTOUT_SOURCE_OPTOUT.csv]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[EMAIL]"
+                      length="50"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[EMAIL]"
+                      name="EMAIL"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[STORE]"
+                      length="50"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[STORE]"
+                      name="STORE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[BRAND]"
+                      length="50"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].Columns[BRAND]"
+                      name="BRAND"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\MOVE FILES TO TABLES.Paths[Flat File Source Output]"
+              endId="Package\MOVE FILES TO TABLES\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE.Outputs[Flat File Source Output]" />
+            <path
+              refId="Package\MOVE FILES TO TABLES.Paths[Flat File Source Output1]"
+              endId="Package\MOVE FILES TO TABLES\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Flat File Source Output"
+              startId="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\MOVE OPTIN"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="File System Task"
+      DTS:DTSID="{11AE42CE-FA2B-4E13-B90B-F7ED6EFA415E}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="2"
+      DTS:ObjectName="MOVE OPTIN"
+      DTS:TaskContact="File System Task;Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{1D1BFCA7-5FF1-41F4-87DF-FC7AF1331DBA}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="Variable1">
+          <DTS:VariableValue
+            DTS:DataType="3">0</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="MoveFile"
+          TaskOverwriteDestFile="True"
+          TaskSourcePath="User::Copy_OPTIN_FROM"
+          TaskIsSourceVariable="True"
+          TaskDestinationPath="User::Copy_OPTIN_TO"
+          TaskIsDestinationVariable="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\MOVE OPTOUT"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="File System Task"
+      DTS:DTSID="{86F73E65-AD21-4C4C-A104-D416ACFE5CFA}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="2"
+      DTS:ObjectName="MOVE OPTOUT"
+      DTS:TaskContact="File System Task;Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{F684B84C-2F99-4D56-AF46-779753DB7874}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="Copy_OPTIN">
+          <DTS:VariableValue
+            DTS:DataType="3">0</DTS:VariableValue>
+        </DTS:Variable>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{1322502B-67AD-491E-B56C-9B5D292ECA16}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="Variable1">
+          <DTS:VariableValue
+            DTS:DataType="3">0</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="MoveFile"
+          TaskOverwriteDestFile="True"
+          TaskSourcePath="User::Copy_OPTOUT_FROM"
+          TaskIsSourceVariable="True"
+          TaskDestinationPath="User::Copy_OPTOUT_TO"
+          TaskIsDestinationVariable="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\MOVE TABLES TO FILES"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CFD063F7-00BC-4F7F-AEFF-310BA66B4B4F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="MOVE TABLES TO FILES"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server v9; (C) 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          engineThreads="5"
+          version="1">
+          <components>
+            <component
+              refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="Flat File Connection Manager 5">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OPTOUT_csv]"
+                  connectionManagerRefId="Package.ConnectionManagers[OPTOUT_csv]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].Columns[EMAIL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="150"
+                      cachedName="EMAIL"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].ExternalColumns[EMAIL]"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[EMAIL]" />
+                    <inputColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].Columns[STORE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="STORE"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].ExternalColumns[STORE]"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[STORE]" />
+                    <inputColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].Columns[BRAND]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BRAND"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].ExternalColumns[BRAND]"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[BRAND]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\MOVE TABLES TO FILES\Flat File Destination"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="Flat File Destination">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE TABLES TO FILES\Flat File Destination.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OPTIN_csv]"
+                  connectionManagerRefId="Package.ConnectionManagers[OPTIN_csv]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].Columns[EMAIL]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="EMAIL"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[EMAIL]"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[EMAIL]" />
+                    <inputColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].Columns[STORE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="STORE"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[STORE]"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[STORE]" />
+                    <inputColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].Columns[BRAND]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BRAND"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[BRAND]"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[BRAND]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              localeId="1033"
+              name="LOAD OPTIN TABLE TO FILE"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[OPT_IN]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from dssdata.dbo.detail_transaction_history
+where 
+store_number &lt;&gt; 55
+and day_date = convert(datetime, convert(varchar(10),getdate()-1,101))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  connectionManagerRefId="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].ExternalColumns[EMAIL]"
+                      length="100"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[EMAIL]"
+                      name="EMAIL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].ExternalColumns[STORE]"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[STORE]"
+                      name="STORE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].ExternalColumns[BRAND]"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].Columns[BRAND]"
+                      name="BRAND"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[EMAIL]"
+                      name="EMAIL" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[STORE]"
+                      name="STORE" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[BRAND]"
+                      name="BRAND" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation;Microsoft SqlServer v9; (C) 2005 Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              localeId="1033"
+              name="LOAD OPTOUT TABLE TO FILE 1"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[OPT_OUT]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from dssdata.dbo.detail_transaction_history
+where 
+store_number &lt;&gt; 55
+and day_date = convert(datetime, convert(varchar(10),getdate()-1,101))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  connectionManagerRefId="Package.ConnectionManagers[bambig03.Tmp_Load]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].ExternalColumns[EMAIL]"
+                      length="150"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[EMAIL]"
+                      name="EMAIL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].ExternalColumns[STORE]"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[STORE]"
+                      name="STORE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].ExternalColumns[BRAND]"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].Columns[BRAND]"
+                      name="BRAND"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].ExternalColumns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="EMAIL" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].ExternalColumns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="STORE" />
+                    <externalMetadataColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output].ExternalColumns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BRAND" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[EMAIL]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[EMAIL]"
+                      name="EMAIL" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[STORE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[STORE]"
+                      name="STORE" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[BRAND]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[BRAND]"
+                      name="BRAND" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\MOVE TABLES TO FILES.Paths[OLE DB Source Output]"
+              endId="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5.Inputs[Flat File Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\MOVE TABLES TO FILES.Paths[OLE DB Source Output1]"
+              endId="Package\MOVE TABLES TO FILES\Flat File Destination.Inputs[Flat File Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Rename OPTIN 1"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="File System Task"
+      DTS:DTSID="{1621FE99-76D8-4FD4-9150-274B3C69F9CA}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="2"
+      DTS:ObjectName="Rename OPTIN 1"
+      DTS:TaskContact="File System Task;Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="RenameFile"
+          TaskOverwriteDestFile="True"
+          TaskSourcePath="User::OPTIN"
+          TaskIsSourceVariable="True"
+          TaskDestinationPath="User::Weekly_OPTIN"
+          TaskIsDestinationVariable="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Rename OPTOUT 2"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="File System Task"
+      DTS:DTSID="{96C67F47-16A4-46A4-A6F7-2729B24C17CA}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="2"
+      DTS:ObjectName="Rename OPTOUT 2"
+      DTS:TaskContact="File System Task;Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="RenameFile"
+          TaskOverwriteDestFile="True"
+          TaskSourcePath="User::OPTOUT"
+          TaskIsSourceVariable="True"
+          TaskDestinationPath="User::Weekly_OPTOUT"
+          TaskIsDestinationVariable="True" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Setup Filenames"
+      DTS:CreationName="Microsoft.ScriptTask"
+      DTS:Description="Script Task"
+      DTS:DTSID="{a48f0a2e-a7b1-41df-8103-f8eee760e4b6}"
+      DTS:ExecutableType="Microsoft.ScriptTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Setup Filenames"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_8fc1291627d446d69bcd36c439c14d7a"
+          VSTAMajorVersion="3"
+          VSTAMinorVersion="0"
+          Language="VisualBasic" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{95F20037-BFC5-4E98-B8EE-BE4780A91EC8}"
+      DTS:From="Package\Get Date"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Setup Filenames" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{864D3A40-0D7B-44F3-8436-378791E68343}"
+      DTS:From="Package\Setup Filenames"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\MOVE OPTIN" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{04659E1D-D3AD-4BD2-A8EB-09A3E0019A61}"
+      DTS:From="Package\MOVE OPTIN"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\MOVE OPTOUT" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 23]"
+      DTS:CreationName=""
+      DTS:DTSID="{8A99ED96-0B58-48EA-8CCF-C610331BAF99}"
+      DTS:From="Package\Encrypt OPTIN"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 23"
+      DTS:To="Package\Rename OPTIN 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 25]"
+      DTS:CreationName=""
+      DTS:DTSID="{E3A876B6-DD71-441A-B2BE-2F85EEB03614}"
+      DTS:From="Package\FTP OPTIN"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 25"
+      DTS:To="Package\FTP OPTOUT" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 27]"
+      DTS:CreationName=""
+      DTS:DTSID="{C4297E03-E267-4170-97E6-50F0A0C27B28}"
+      DTS:From="Package\Rename OPTIN 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 27"
+      DTS:To="Package\Encrypt OPTOUT" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 28]"
+      DTS:CreationName=""
+      DTS:DTSID="{1D24EF6B-9085-4238-A772-CFDA0C3C90F7}"
+      DTS:From="Package\Encrypt OPTOUT"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 28"
+      DTS:To="Package\Rename OPTOUT 2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 29]"
+      DTS:CreationName=""
+      DTS:DTSID="{B54CC4C3-0EC2-4D15-A966-968724276C72}"
+      DTS:From="Package\Rename OPTOUT 2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 29"
+      DTS:To="Package\FTP OPTIN" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{A0708254-61C6-446C-BE54-10399A411FD0}"
+      DTS:From="Package\MOVE OPTOUT"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\MOVE FILES TO TABLES" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{D9DC87A4-D218-45CD-AE8E-C9530C39ADC5}"
+      DTS:From="Package\MOVE FILES TO TABLES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\MOVE TABLES TO FILES" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{BE2435A2-E6BA-40E9-A09A-7BF90FDB1720}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Get Date" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{0743718D-ED52-43CA-B295-5A7825D87996}"
+      DTS:From="Package\MOVE TABLES TO FILES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Encrypt OPTIN" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Encrypt OPTIN"
+          TopLeft="390.103773584905,217.650943396226" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Encrypt OPTOUT"
+          TopLeft="67.5,299.5" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Execute SQL Task"
+          TopLeft="81.6509433962265,5.5" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\FTP OPTIN"
+          TopLeft="378.066037735849,299.349056603774" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\FTP OPTOUT"
+          TopLeft="543.801886792452,300.405660377359" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Get Date"
+          TopLeft="74.2924528301887,131.103773584906" />
+        <NodeLayout
+          Size="193.6,41.6"
+          Id="Package\MOVE FILES TO TABLES"
+          TopLeft="0.907547169811295,214.979245283019" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\MOVE OPTIN"
+          TopLeft="378.028301886792,131.707547169812" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\MOVE OPTOUT"
+          TopLeft="557.764150943396,133.575471698113" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\MOVE TABLES TO FILES"
+          TopLeft="228.481132075472,215.160377358491" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Rename OPTIN 1"
+          TopLeft="545.839622641509,221.575471698113" />
+        <NodeLayout
+          Size="136,44"
+          Id="Package\Rename OPTOUT 2"
+          TopLeft="226.254716981132,299.311320754717" />
+        <NodeLayout
+          Size="144.8,41.6"
+          Id="Package\Setup Filenames"
+          TopLeft="223.2,132.8" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="163.625786163522,131.103773584906">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="109.174213836478,1.69622641509403"
+              Start="0,0"
+              End="109.174213836478,-5.80377358490597">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-18.5"
+                    Point2="0,-22.5"
+                    Point3="4,-22.5" />
+                  <mssgle:LineSegment
+                    End="105.174213836478,-22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="105.174213836478,-22.5"
+                    Point2="109.174213836478,-22.5"
+                    Point3="109.174213836478,-18.5" />
+                  <mssgle:LineSegment
+                    End="109.174213836478,-5.80377358490597" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="318.4,132.8">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="127.628301886792,-1.09245283018805"
+              Start="0,0"
+              End="127.628301886792,-8.59245283018805">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-19.5924528301881" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-19.5924528301881"
+                    Point2="0,-23.5924528301881"
+                    Point3="4,-23.5924528301881" />
+                  <mssgle:LineSegment
+                    End="123.628301886792,-23.5924528301881" />
+                  <mssgle:CubicBezierSegment
+                    Point1="123.628301886792,-23.5924528301881"
+                    Point2="127.628301886792,-23.5924528301881"
+                    Point3="127.628301886792,-19.5924528301881" />
+                  <mssgle:LineSegment
+                    End="127.628301886792,-8.59245283018805" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="514.028301886792,154.641509433962">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43.735849056604,0"
+              Start="0,0"
+              End="36.235849056604,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="36.235849056604,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 23]"
+          TopLeft="525.877358490566,239.61320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="19.9622641509436,3.92452830188677"
+              Start="0,0"
+              End="12.4622641509436,3.92452830188677">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="10,0" />
+                  <mssgle:LineSegment
+                    End="10,3.92452830188677" />
+                  <mssgle:LineSegment
+                    End="12.4622641509436,3.92452830188677" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 25]"
+          TopLeft="513.839622641509,321.311320754717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29.9622641509432,1.05660377358481"
+              Start="0,0"
+              End="22.4622641509432,1.05660377358481">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="14.9811320754716,0" />
+                  <mssgle:LineSegment
+                    End="14.9811320754716,1.05660377358481" />
+                  <mssgle:LineSegment
+                    End="22.4622641509432,1.05660377358481" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 27]"
+          TopLeft="613.839622641509,265.575471698113">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-478.339622641509,33.924528301887"
+              Start="0,0"
+              End="-478.339622641509,26.424528301887">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.9622641509435" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.9622641509435"
+                    Point2="0,16.9622641509435"
+                    Point3="-4,16.9622641509435" />
+                  <mssgle:LineSegment
+                    End="-474.339622641509,16.9622641509435" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-474.339622641509,16.9622641509435"
+                    Point2="-478.339622641509,16.9622641509435"
+                    Point3="-478.339622641509,20.9622641509435" />
+                  <mssgle:LineSegment
+                    End="-478.339622641509,26.424528301887" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 28]"
+          TopLeft="203.5,321.405660377358">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="22.754716981132,0"
+              Start="0,0"
+              End="15.254716981132,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="15.254716981132,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 29]"
+          TopLeft="362.028301886792,321.273584905661">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16.0377358490568,0.0377358490563893"
+              Start="0,0"
+              End="8.53773584905684,0.0377358490563893">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="8.03773584905684,0" />
+                  <mssgle:LineSegment
+                    End="8.03773584905684,0.0377358490563893" />
+                  <mssgle:LineSegment
+                    End="8.53773584905684,0.0377358490563893" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="625.764150943396,177.575471698113">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-528.056603773585,37.403773584906"
+              Start="0,0"
+              End="-528.056603773585,29.903773584906">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.701886792453" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.701886792453"
+                    Point2="0,18.701886792453"
+                    Point3="-4,18.701886792453" />
+                  <mssgle:LineSegment
+                    End="-524.056603773585,18.701886792453" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-524.056603773585,18.701886792453"
+                    Point2="-528.056603773585,18.701886792453"
+                    Point3="-528.056603773585,22.701886792453" />
+                  <mssgle:LineSegment
+                    End="-528.056603773585,29.903773584906" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="194.507547169811,236.469811320755">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="33.9735849056607,0"
+              Start="0,0"
+              End="26.4735849056607,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="26.4735849056607,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="149.650943396226,49.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-28.6918238993711,81.603773584906"
+              Start="0,0"
+              End="-28.6918238993711,74.103773584906">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.3929354980257" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44.3929354980257"
+                    Point2="0,48.3929354980257"
+                    Point3="-4,48.3929354980257" />
+                  <mssgle:LineSegment
+                    End="-24.6918238993711,48.3929354980257" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-24.6918238993711,48.3929354980257"
+                    Point2="-28.6918238993711,48.3929354980257"
+                    Point3="-28.6918238993711,52.3929354980257" />
+                  <mssgle:LineSegment
+                    End="-28.6918238993711,74.103773584906" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="364.254716981132,237.122641509434">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="25.8490566037735,2.49056603773579"
+              Start="0,0"
+              End="18.3490566037735,2.49056603773579">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="12.9433962264152,0" />
+                  <mssgle:LineSegment
+                    End="12.9433962264152,2.49056603773579" />
+                  <mssgle:LineSegment
+                    End="18.3490566037735,2.49056603773579" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\MOVE FILES TO TABLES">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\MOVE FILES TO TABLES\OPTIN FLAT FILE"
+          TopLeft="14,5.5" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\MOVE FILES TO TABLES\OLE DB Destination 1"
+          TopLeft="5.5,107.5" />
+        <NodeLayout
+          Size="169.6,41.6"
+          Id="Package\MOVE FILES TO TABLES\OPTOUT FLAT FILE"
+          TopLeft="247.5,4.5" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\MOVE FILES TO TABLES\OLE DB Destination"
+          TopLeft="246,107.5" />
+        <EdgeLayout
+          Id="Package\MOVE FILES TO TABLES.Paths[Flat File Source Output1]"
+          TopLeft="332,46.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MOVE FILES TO TABLES.Paths[Flat File Source Output]"
+          TopLeft="95,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\MOVE FILES TO TABLES\OLE DB Destination 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\MOVE FILES TO TABLES\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\MOVE TABLES TO FILES">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,41.6"
+          Id="Package\MOVE TABLES TO FILES\Flat File Destination"
+          TopLeft="26.5,107.5" />
+        <NodeLayout
+          Size="214.4,41.6"
+          Id="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="224,41.6"
+          Id="Package\MOVE TABLES TO FILES\Flat File Connection Manager 5"
+          TopLeft="283.5,108.5" />
+        <NodeLayout
+          Size="232.8,41.6"
+          Id="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1"
+          TopLeft="280,5.5" />
+        <EdgeLayout
+          Id="Package\MOVE TABLES TO FILES.Paths[OLE DB Source Output]"
+          TopLeft="396,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\MOVE TABLES TO FILES.Paths[OLE DB Source Output1]"
+          TopLeft="112.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\MOVE TABLES TO FILES\LOAD OPTIN TABLE TO FILE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\MOVE TABLES TO FILES\LOAD OPTOUT TABLE TO FILE 1">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

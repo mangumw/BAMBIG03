@@ -1,0 +1,71 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/3/2021 12:10:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BAMBIG03"
+  DTS:CreatorName="BAM\kennedyl"
+  DTS:DTSID="{195A8D58-9D85-47D3-A594-5E8CFC7DB9F2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.1601.5"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Build_Active_Stores"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{84B22231-30D7-40EA-AA21-EC34458CEFBF}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AS400.infausr]"
+      DTS:CreationName="ODBC"
+      DTS:DTSID="{B7AA47C7-9FFA-4A9B-AA20-8443C33F24F9}"
+      DTS:ObjectName="AS400.infausr">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::AS400INFAUSR_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="uid=infausr;Dsn=AS400;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUexXNfSGLkWvYbgzY+ntvwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAA80gBtOcfVoGMT+2999g4EAAAAAASAAACgAAAAEAAAAGz/VJMOC4aTyFv2PgWc/P4YAAAA1MDyPhoN9CY8Fjl33VqooB5kI8+kcoPvFAAAAHrVtTIjMKl7qTwUroajbF3SaIYo</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[bambig03.Reference]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0AB78688-BC30-4FDA-A74F-0C683C215B6D}"
+      DTS:ObjectName="bambig03.Reference">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::Bambig03ReferenceInfausr_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=bambig03;Initial Catalog=Reference;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BamBig03.Staging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{76EE0751-5C43-47BC-BF08-C63560DDDFE4}"
+      DTS:ObjectName="BamBig03.Staging">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::Bambig03StagingInfausr_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BAMBIG03;Initial Catalog=Staging;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables />
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

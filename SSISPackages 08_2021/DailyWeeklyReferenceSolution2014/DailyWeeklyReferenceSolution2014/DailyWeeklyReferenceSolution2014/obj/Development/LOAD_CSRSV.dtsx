@@ -1,0 +1,1036 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/4/2022 12:50:01 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BAMBIG03"
+  DTS:CreatorName="BAM\infausr"
+  DTS:DTSID="{E684A613-B829-4A26-B4B5-397B908ADCB3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.1601.5"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="LOAD_CSRSV"
+  DTS:PackageType="5"
+  DTS:VersionBuild="22"
+  DTS:VersionGUID="{24AF252A-822C-4CBA-A5A5-1D1E1C118DF0}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BAMBIGDEV03.EDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{92FCF914-0ABC-474B-85BA-BBFEA7F02281}"
+      DTS:ObjectName="BAMBIGDEV03.EDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BAMBIGDEV03;Initial Catalog=EDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Cleanup Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{981EBB99-0B80-40F3-AF70-BB2CDDBAF42D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Cleanup Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{92FCF914-0ABC-474B-85BA-BBFEA7F02281}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE EDW.stg.CSRSV" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Data"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{18E115B5-2DBC-4BB5-B289-AD0F6F94822F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Data"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Data\AS 400 Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="AS 400 Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT RVCONO AS CompanyNumber,
+       RVCSNO AS CustomerNumber,
+       RVWHID AS WarehouseID,
+       RVITNO AS ItemNumber,
+       RVRSQT AS QuantityReserved,
+       RVUNMS AS UnitofMeasure,
+       RVRVCC AS ExpireDateCnty,
+       TO_DATE(CHAR(RVRVDT), 'YYMMDD') AS ExpireDate,
+--       CASE RVRVCC
+--           WHEN 19 THEN varchar_format(TIMESTAMP_FORMAT(CHAR(RVRVDT + 19000000), 'YYYYMMDD'), 'YYYYMMDD')
+--           WHEN 20 THEN varchar_format(TIMESTAMP_FORMAT(CHAR(LPAD(RVRVDT, 6, 0)), 'YYMMDD'), 'YYMMDD')
+--       END AS ExpireDate,
+       RVLMCC AS LastMaintDateCnty,
+--       CASE RVLMCC
+--           WHEN 19 THEN varchar_format(TIMESTAMP_FORMAT(CHAR(RVLMDT + 19000000), 'YYYYMMDD'), 'YYYYMMDD')
+--           WHEN 20 THEN varchar_format(TIMESTAMP_FORMAT(CHAR(LPAD(RVLMDT, 6, 0)), 'YYMMDD'), 'YYMMDD')
+--       END AS LastMaintDate,
+       TO_DATE(CHAR(RVLMDT), 'YYMMDD') AS LastMaintDate,
+       LTRIM(RTRIM(RVCGUS)) AS LastMaintUser,
+       TIME(to_date(DIGITS(CAST(RVCHTM AS DEC(6, 0))), 'HH24MISS')) AS LastMaintTime
+    FROM APLUS2FAW.CSRSV
+--    WHERE RVLMDT = (SELECT VARCHAR_FORMAT(CURRENT TIMESTAMP, 'YYMMDD') - 1  FROM SYSIBM.SYSDUMMY1)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data\AS 400 Source.Connections[OleDbConnection]"
+                  connectionManagerID="{E0142F4F-0FE4-4FCC-ACF2-197E06D14784}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BKL400.BKL400QSYS2.infausr]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[COMPANYNUMBER]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[COMPANYNUMBER]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[COMPANYNUMBER]"
+                      name="COMPANYNUMBER"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[CUSTOMERNUMBER]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[CUSTOMERNUMBER]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[CUSTOMERNUMBER]"
+                      name="CUSTOMERNUMBER"
+                      precision="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[WAREHOUSEID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[WAREHOUSEID]"
+                      length="2"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[WAREHOUSEID]"
+                      name="WAREHOUSEID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[ITEMNUMBER]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[ITEMNUMBER]"
+                      length="27"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[ITEMNUMBER]"
+                      name="ITEMNUMBER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[QUANTITYRESERVED]"
+                      dataType="decimal"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[QUANTITYRESERVED]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[QUANTITYRESERVED]"
+                      name="QUANTITYRESERVED"
+                      scale="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[UNITOFMEASURE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[UNITOFMEASURE]"
+                      length="3"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[UNITOFMEASURE]"
+                      name="UNITOFMEASURE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[EXPIREDATECNTY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[EXPIREDATECNTY]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[EXPIREDATECNTY]"
+                      name="EXPIREDATECNTY"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[EXPIREDATE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[EXPIREDATE]"
+                      length="255"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[EXPIREDATE]"
+                      name="EXPIREDATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTDATECNTY]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTDATECNTY]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTDATECNTY]"
+                      name="LASTMAINTDATECNTY"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTDATE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTDATE]"
+                      length="255"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTDATE]"
+                      name="LASTMAINTDATE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTUSER]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTUSER]"
+                      length="10"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTUSER]"
+                      name="LASTMAINTUSER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTTIME]"
+                      dataType="dbTime"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTTIME]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTTIME]"
+                      name="LASTMAINTTIME"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[COMPANYNUMBER]"
+                      dataType="numeric"
+                      name="COMPANYNUMBER"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[CUSTOMERNUMBER]"
+                      dataType="numeric"
+                      name="CUSTOMERNUMBER"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[WAREHOUSEID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="WAREHOUSEID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[ITEMNUMBER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="27"
+                      name="ITEMNUMBER" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[QUANTITYRESERVED]"
+                      dataType="decimal"
+                      name="QUANTITYRESERVED"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[UNITOFMEASURE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="UNITOFMEASURE" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[EXPIREDATECNTY]"
+                      dataType="numeric"
+                      name="EXPIREDATECNTY"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[EXPIREDATE]"
+                      dataType="dbTimeStamp2"
+                      name="EXPIREDATE"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTDATECNTY]"
+                      dataType="numeric"
+                      name="LASTMAINTDATECNTY"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTDATE]"
+                      dataType="dbTimeStamp2"
+                      name="LASTMAINTDATE"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTUSER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="LASTMAINTUSER" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].ExternalColumns[LASTMAINTTIME]"
+                      dataType="dbTime"
+                      name="LASTMAINTTIME" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[COMPANYNUMBER]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[COMPANYNUMBER]"
+                      name="COMPANYNUMBER"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[CUSTOMERNUMBER]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[CUSTOMERNUMBER]"
+                      name="CUSTOMERNUMBER"
+                      precision="10" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[WAREHOUSEID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[WAREHOUSEID]"
+                      name="WAREHOUSEID" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[ITEMNUMBER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="27"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[ITEMNUMBER]"
+                      name="ITEMNUMBER" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[QUANTITYRESERVED]"
+                      dataType="decimal"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[QUANTITYRESERVED]"
+                      name="QUANTITYRESERVED"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[UNITOFMEASURE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[UNITOFMEASURE]"
+                      name="UNITOFMEASURE" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[EXPIREDATECNTY]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[EXPIREDATECNTY]"
+                      name="EXPIREDATECNTY"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[EXPIREDATE]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[EXPIREDATE]"
+                      name="EXPIREDATE"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTDATECNTY]"
+                      dataType="numeric"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTDATECNTY]"
+                      name="LASTMAINTDATECNTY"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTDATE]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTDATE]"
+                      name="LASTMAINTDATE"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTUSER]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTUSER]"
+                      name="LASTMAINTUSER" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTTIME]"
+                      dataType="dbTime"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[LASTMAINTTIME]"
+                      name="LASTMAINTTIME" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load Data\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Load Data\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data\Derived Column.Outputs[Derived Column Output].Columns[Last_Modified]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Load Data\Derived Column.Outputs[Derived Column Output].Columns[Last_Modified]"
+                      name="Last_Modified"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load Data\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Load Data\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Data\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[CSRSV]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Data\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[BAMBIGDEV03.EDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[BAMBIGDEV03.EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[COMPANYNUMBER]"
+                      cachedDataType="numeric"
+                      cachedName="COMPANYNUMBER"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CompanyNumber]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[COMPANYNUMBER]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CUSTOMERNUMBER]"
+                      cachedDataType="numeric"
+                      cachedName="CUSTOMERNUMBER"
+                      cachedPrecision="10"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerNumber]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[CUSTOMERNUMBER]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[WAREHOUSEID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="WAREHOUSEID"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[WarehouseID]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[WAREHOUSEID]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ITEMNUMBER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="27"
+                      cachedName="ITEMNUMBER"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemNumber]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[ITEMNUMBER]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[QUANTITYRESERVED]"
+                      cachedDataType="decimal"
+                      cachedName="QUANTITYRESERVED"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[QuantityReserved]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[QUANTITYRESERVED]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[UNITOFMEASURE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="UNITOFMEASURE"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UnitofMeasure]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[UNITOFMEASURE]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EXPIREDATECNTY]"
+                      cachedDataType="numeric"
+                      cachedName="EXPIREDATECNTY"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExpireDateCnty]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[EXPIREDATECNTY]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LASTMAINTDATECNTY]"
+                      cachedDataType="numeric"
+                      cachedName="LASTMAINTDATECNTY"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintDateCnty]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTDATECNTY]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LASTMAINTUSER]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="LASTMAINTUSER"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintUser]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTUSER]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LASTMAINTTIME]"
+                      cachedDataType="dbTime"
+                      cachedName="LASTMAINTTIME"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintTime]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTTIME]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Last_Modified]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Last_Modified"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Last_Modified]"
+                      lineageId="Package\Load Data\Derived Column.Outputs[Derived Column Output].Columns[Last_Modified]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EXPIREDATE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="EXPIREDATE"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExpireDate]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[EXPIREDATE]" />
+                    <inputColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LASTMAINTDATE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="LASTMAINTDATE"
+                      externalMetadataColumnId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintDate]"
+                      lineageId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output].Columns[LASTMAINTDATE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CompanyNumber]"
+                      dataType="numeric"
+                      name="CompanyNumber"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerNumber]"
+                      dataType="numeric"
+                      name="CustomerNumber"
+                      precision="10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[WarehouseID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="WarehouseID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="27"
+                      name="ItemNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[QuantityReserved]"
+                      dataType="numeric"
+                      name="QuantityReserved"
+                      precision="10"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UnitofMeasure]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="UnitofMeasure" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExpireDateCnty]"
+                      dataType="numeric"
+                      name="ExpireDateCnty"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExpireDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ExpireDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintDateCnty]"
+                      dataType="numeric"
+                      name="LastMaintDateCnty"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="LastMaintDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintUser]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="LastMaintUser" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastMaintTime]"
+                      dataType="dbTime2"
+                      name="LastMaintTime" />
+                    <externalMetadataColumn
+                      refId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Last_Modified]"
+                      dataType="dbTimeStamp"
+                      name="Last_Modified" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Data\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Data.Paths[Derived Column Output]"
+              endId="Package\Load Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Load Data\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Load Data.Paths[OLE DB Source Output]"
+              endId="Package\Load Data\Derived Column.Inputs[Derived Column Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Data\AS 400 Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Merge CSRSV"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{99FE6F2E-CE2D-42FA-8FEF-90F028D8D050}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Merge CSRSV"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{92FCF914-0ABC-474B-85BA-BBFEA7F02281}"
+          SQLTask:SqlStatementSource="EXEC dbo.MERGE_CSRSV&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate CSRSV"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{89B0E6D7-49DE-420A-8977-11BA3AF55CE8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate CSRSV"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{92FCF914-0ABC-474B-85BA-BBFEA7F02281}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE EDW.stg.CSRSV" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C42FF42B-C9DE-4ACC-81C5-FC6CB5D9AC7E}"
+      DTS:From="Package\Truncate CSRSV"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Data" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{716DD77B-0F5D-4790-9ABA-7393A62D98C5}"
+      DTS:From="Package\Load Data"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Merge CSRSV" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{E5472F74-F9B2-4668-A593-577DBC951614}"
+      DTS:From="Package\Merge CSRSV"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Cleanup Staging" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160,42"
+          Id="Package\Cleanup Staging"
+          TopLeft="332,308" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\Load Data"
+          TopLeft="356,136" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Merge CSRSV"
+          TopLeft="343,226" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Truncate CSRSV"
+          TopLeft="346,58" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="424.25,100">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="419.75,178">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,48"
+              Start="0,0"
+              End="0,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="415.25,268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Load Data\OLE DB Destination"
+          TopLeft="395,199" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Load Data\AS 400 Source"
+          TopLeft="405,48" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Load Data\Derived Column"
+          TopLeft="402,122" />
+        <EdgeLayout
+          Id="Package\Load Data.Paths[Derived Column Output]"
+          TopLeft="482.25,164">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Data.Paths[OLE DB Source Output]"
+          TopLeft="481.25,90">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Data\AS 400 Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

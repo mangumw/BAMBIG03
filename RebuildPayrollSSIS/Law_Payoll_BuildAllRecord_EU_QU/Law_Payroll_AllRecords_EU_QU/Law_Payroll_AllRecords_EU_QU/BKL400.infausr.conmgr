@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="BKL400.infausr"
+  DTS:DTSID="{FA9C2938-9EFD-4F6D-B510-C06B35AB0D26}"
+  DTS:CreationName="ODBC">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="uid=infausr;Dsn=BKL400;">
+      <DTS:Password
+        DTS:Name="pwd"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGRuTKb5c6kSM7EIRfEwOsQAAAAACAAAAAAADZgAAwAAAABAAAACbqsbh4QhiMFpDY9EJ+dNhAAAAAASAAACgAAAAEAAAAOlsHWetRLGOmYxJUZarzZJwAAAAMOoxKR3x9XDTpQEV8uGAbpS4Dte8XLT6/42zR0E20VCxpdgmRAdhd4lxLYEe6QlG/BpTdKY9iZnnVXSxu4oHUrElDNK6wfoEYUYkaOxckiT4pAW9tWO1hv8Plolkxuw7NatXzoBOWFTtKK3HG36+qRQAAADfsEgK2YnzCVHqH8aRqtC22+Uu1g==</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectInfo>
+    <Name>CR_Solution</Name>
+    <LastWriteTime>2021-08-25T15:27:17.8707115Z</LastWriteTime>
+    <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
+    <Salt>j0CXVzz+</Salt>
+    <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUexXNfSGLkWvYbgzY+ntvwAAAAACAAAAAAADZgAAwAAAABAAAABig8q+UcpPAtaPRMUQNf1TAAAAAASAAACgAAAAEAAAAFb2HJ9IZRO1Q7B7R305y2AoAAAASEUoTPmR0gjSlUyw6qowmWy3cgURSH7ddes/xOKLICHE7p6uAt/AThQAAADYW100iNLxArLVkGASnoLzlw6oKQ==</LastKnownProtectedHashedPassword>
+  </ProjectInfo>
+  <LastBuildInfos>
+    <ProjectBuildItemInfo>
+      <Name>CR.dtsx</Name>
+      <LastWriteTime>2021-09-27T14:14:05.6049528Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
+      <Salt>YYQVqtwg</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAUexXNfSGLkWvYbgzY+ntvwAAAAACAAAAAAADZgAAwAAAABAAAABP612nfjD/XlZ7lUejrWEuAAAAAASAAACgAAAAEAAAAKqyHk0tbBzCmn+u9e6ggOYoAAAAKhctKT6/rAKLwdo4PG/dZTp+vot8VhjgFZSUKwO9TegN0rvyT1n+2RQAAABLK/PVTTpkAtNSgolEXifstsOc6w==</LastKnownProtectedHashedPassword>
+    </ProjectBuildItemInfo>
+  </LastBuildInfos>
+</BuildLog>

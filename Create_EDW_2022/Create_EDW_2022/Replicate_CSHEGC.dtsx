@@ -1,0 +1,930 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/22/2022 1:56:20 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BAMBIG03"
+  DTS:CreatorName="BAM\infausr"
+  DTS:DTSID="{56A6B375-FA71-4C8D-824A-F5AD8E27ED71}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.1601.5"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Replicate_CSHEGC"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{7A8C9B9F-32BE-481E-8777-229BEE0C372C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BAMBIG03.Reference]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{0DC15148-4BFC-4F5A-8C86-28D60EB9B647}"
+      DTS:ObjectName="BAMBIG03.Reference">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BAMBIG03;Initial Catalog=Reference;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SP Merge CSHEGC"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{93758E29-EB31-4580-A1C3-CBDD89A7FFDB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SP Merge CSHEGC"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3F33E091-472A-41DE-B391-7E3A90CF0663}"
+          SQLTask:SqlStatementSource="EXEC dbo.MERGE_CSHEGC" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Staging Data"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{26A30EFB-45FA-4A15-A951-8996895C7A7D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Staging Data"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Staging Data\Linked Server to 400"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Linked Server to 400"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+StoreNumber,
+TransactionDate,
+RegisterNumber,
+RollOverNumber,
+TransactionNumber,
+SequenceNumber,
+TransactionType,
+ExtendedAmount,
+GiftCardNumber,
+GCAuthCode,
+DateCreated,
+ProgramName
+ from openquery (bkl400, 
+'select 
+EGSTOR as StoreNumber,
+to_date(CHAR(EGDATE), ''YYYYMMDD'') as TransactionDate,
+EGREG# as RegisterNumber,
+EGROLL as RollOverNumber,
+EGTRN# as TransactionNumber,
+EGSEQ# as SequenceNumber,
+EGDTYP as TransactionType,
+EGEXTA as ExtendedAmount,
+EGGCNM as GiftCardNumber,
+EGGCAC as GCAuthCode,
+to_date(char(EGCDTE), ''YYYYMMDD'') as DateCreated,
+EGPRGM as ProgramName
+from MM4R4LIB.CSHEGC
+WHERE egdate &gt;= varchar_format (current date -1 days, ''YYYYMMDD'')')</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging Data\Linked Server to 400.Connections[OleDbConnection]"
+                  connectionManagerID="{3F33E091-472A-41DE-B391-7E3A90CF0663}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BAMBIGDEV03.EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[StoreNumber]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[StoreNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[StoreNumber]"
+                      name="StoreNumber"
+                      precision="5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[TransactionDate]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionDate]"
+                      name="TransactionDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[RegisterNumber]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[RegisterNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[RegisterNumber]"
+                      name="RegisterNumber"
+                      precision="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[RollOverNumber]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[RollOverNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[RollOverNumber]"
+                      name="RollOverNumber"
+                      precision="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionNumber]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[TransactionNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionNumber]"
+                      name="TransactionNumber"
+                      precision="5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[SequenceNumber]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[SequenceNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[SequenceNumber]"
+                      name="SequenceNumber"
+                      precision="3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[TransactionType]"
+                      length="2"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionType]"
+                      name="TransactionType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[ExtendedAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[ExtendedAmount]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[ExtendedAmount]"
+                      name="ExtendedAmount"
+                      precision="9"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[GiftCardNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[GiftCardNumber]"
+                      length="20"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[GiftCardNumber]"
+                      name="GiftCardNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[GCAuthCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[GCAuthCode]"
+                      length="10"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[GCAuthCode]"
+                      name="GCAuthCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[DateCreated]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[DateCreated]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[DateCreated]"
+                      name="DateCreated"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[ProgramName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[ProgramName]"
+                      length="10"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[ProgramName]"
+                      name="ProgramName"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[StoreNumber]"
+                      dataType="numeric"
+                      name="StoreNumber"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[TransactionDate]"
+                      dataType="dbTimeStamp2"
+                      name="TransactionDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[RegisterNumber]"
+                      dataType="numeric"
+                      name="RegisterNumber"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[RollOverNumber]"
+                      dataType="numeric"
+                      name="RollOverNumber"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[TransactionNumber]"
+                      dataType="numeric"
+                      name="TransactionNumber"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[SequenceNumber]"
+                      dataType="numeric"
+                      name="SequenceNumber"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[TransactionType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TransactionType" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[ExtendedAmount]"
+                      dataType="numeric"
+                      name="ExtendedAmount"
+                      precision="9"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[GiftCardNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="GiftCardNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[GCAuthCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="GCAuthCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[DateCreated]"
+                      dataType="dbTimeStamp2"
+                      name="DateCreated"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].ExternalColumns[ProgramName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ProgramName" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[StoreNumber]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[StoreNumber]"
+                      name="StoreNumber"
+                      precision="5" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[TransactionDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[TransactionDate]"
+                      name="TransactionDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[RegisterNumber]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[RegisterNumber]"
+                      name="RegisterNumber"
+                      precision="3" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[RollOverNumber]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[RollOverNumber]"
+                      name="RollOverNumber"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[TransactionNumber]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[TransactionNumber]"
+                      name="TransactionNumber"
+                      precision="5" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[SequenceNumber]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[SequenceNumber]"
+                      name="SequenceNumber"
+                      precision="3" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[TransactionType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[TransactionType]"
+                      name="TransactionType" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ExtendedAmount]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ExtendedAmount]"
+                      name="ExtendedAmount"
+                      precision="9"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[GiftCardNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[GiftCardNumber]"
+                      name="GiftCardNumber" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[GCAuthCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[GCAuthCode]"
+                      name="GCAuthCode" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[DateCreated]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[DateCreated]"
+                      name="DateCreated"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ProgramName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ProgramName]"
+                      name="ProgramName" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging Data\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[CSHEGC]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging Data\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="{3F33E091-472A-41DE-B391-7E3A90CF0663}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[BAMBIGDEV03.EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[StoreNumber]"
+                      cachedDataType="numeric"
+                      cachedName="StoreNumber"
+                      cachedPrecision="5"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StoreNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[StoreNumber]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TransactionDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="TransactionDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransactionDate]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionDate]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[RegisterNumber]"
+                      cachedDataType="numeric"
+                      cachedName="RegisterNumber"
+                      cachedPrecision="3"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RegisterNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[RegisterNumber]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[RollOverNumber]"
+                      cachedDataType="numeric"
+                      cachedName="RollOverNumber"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RollOverNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[RollOverNumber]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TransactionNumber]"
+                      cachedDataType="numeric"
+                      cachedName="TransactionNumber"
+                      cachedPrecision="5"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransactionNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionNumber]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SequenceNumber]"
+                      cachedDataType="numeric"
+                      cachedName="SequenceNumber"
+                      cachedPrecision="3"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SequenceNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[SequenceNumber]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TransactionType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TransactionType"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransactionType]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[TransactionType]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ExtendedAmount]"
+                      cachedDataType="numeric"
+                      cachedName="ExtendedAmount"
+                      cachedPrecision="9"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExtendedAmount]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[ExtendedAmount]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[GiftCardNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="GiftCardNumber"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[GiftCardNumber]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[GiftCardNumber]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[GCAuthCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="GCAuthCode"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[GCAuthCode]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[GCAuthCode]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DateCreated]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="DateCreated"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateCreated]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[DateCreated]" />
+                    <inputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ProgramName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="ProgramName"
+                      externalMetadataColumnId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProgramName]"
+                      lineageId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output].Columns[ProgramName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StoreNumber]"
+                      dataType="i4"
+                      name="StoreNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransactionDate]"
+                      dataType="dbDate"
+                      name="TransactionDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RegisterNumber]"
+                      dataType="i4"
+                      name="RegisterNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RollOverNumber]"
+                      dataType="i4"
+                      name="RollOverNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransactionNumber]"
+                      dataType="i4"
+                      name="TransactionNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[SequenceNumber]"
+                      dataType="i4"
+                      name="SequenceNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TransactionType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TransactionType" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ExtendedAmount]"
+                      dataType="numeric"
+                      name="ExtendedAmount"
+                      precision="9"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[GiftCardNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="GiftCardNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[GCAuthCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="GCAuthCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateCreated]"
+                      dataType="dbDate"
+                      name="DateCreated" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProgramName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ProgramName" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging Data\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Staging Data.Paths[OLE DB Source Output]"
+              endId="Package\Load Staging Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging Data\Linked Server to 400.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1968ACB8-18FA-4120-A66C-8D6CE7F2D609}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3F33E091-472A-41DE-B391-7E3A90CF0663}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE EDW.stg.CSHEGC" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Staging CSHEGC"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DFA92E17-90D0-4F84-876E-BA69F1D481AA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Staging CSHEGC"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3F33E091-472A-41DE-B391-7E3A90CF0663}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE EDW.stg.CSHEGC" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{34E08A66-0781-4CE6-A8F5-B90E0C5B2D77}"
+      DTS:From="Package\Truncate Staging CSHEGC"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Staging Data" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C00A344C-7140-43F0-A8F1-A56DE97D4125}"
+      DTS:From="Package\Load Staging Data"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Execute SP Merge CSHEGC" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{65B42277-739F-42D2-99F3-22D0D90DCBCC}"
+      DTS:From="Package\Execute SP Merge CSHEGC"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Truncate Staging" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="220,42"
+          Id="Package\Execute SP Merge CSHEGC"
+          TopLeft="190,197" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Load Staging Data"
+          TopLeft="218,103" />
+        <NodeLayout
+          Size="213,42"
+          Id="Package\Truncate Staging CSHEGC"
+          TopLeft="192,26" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="300.75,68">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="301.5,145">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Truncate Staging"
+          TopLeft="219,289" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="300.25,239">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Staging Data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Load Staging Data\Linked Server to 400"
+          TopLeft="300,46" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Load Staging Data\OLE DB Destination"
+          TopLeft="294,134" />
+        <EdgeLayout
+          Id="Package\Load Staging Data.Paths[OLE DB Source Output]"
+          TopLeft="386.25,88">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging Data\Linked Server to 400">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging Data\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

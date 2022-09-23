@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="bamitr05.Law_Payroll.infausr"
+  DTS:DTSID="{275C3E5B-45F1-423B-96B0-4B028F81B068}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=bamitr05;User ID=infausr;Initial Catalog=Law_Payroll_Test;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGRuTKb5c6kSM7EIRfEwOsQAAAAACAAAAAAADZgAAwAAAABAAAABbxiFW7rtUPfJfJmoOQ6rzAAAAAASAAACgAAAAEAAAANd91JIGm6JI19GrzELKzo94AAAAsmInbTjAUorwl4qHWPF8ttWrZtxNQIGEvjEKiSPlw1uvjLdg3sa+ZHVK6jqp4L8sAuY5gdCDyLPdmcITIkAVZfepVFz+X24gs19QuEhHJE9DXcNUm+xLul27ViyRUGsZ4cBUeWBT38Zr9ysNzQoBGqb4zVbsGRnQFAAAAOdYOen842Zzdk5RJkrlfOS8uCnn</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
